@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 from dotenv import load_dotenv
 import os
-import datetim
+import datetime
 load_dotenv()
 discord_token_hex = os.getenv('DISCORD_TOKEN_HEX')
 discord_token = bytes.fromhex(discord_token_hex).decode('utf-8')
