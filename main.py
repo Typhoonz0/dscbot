@@ -1,30 +1,41 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
+from dotenv import load_dotenv
+import os
+import datetime
+
+# Load environment variables from .env file
+load_dotenv()
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+
+if not TOKEN:
+    raise ValueError("No DISCORD_BOT_TOKEN found in environment variables")
 
 intents = discord.Intents.default()
 intents.messages = True
 intents.guilds = True
 intents.members = True
+intents.message_content = True
 
-bot = commands.Bot(command_prefix='--', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
     print(f'Bot connected as {bot.user}')
-"""
-@bot.command()
-async def help(ctx):
-    help_text = 
+
+@bot.command(name='help', help='Display the help menu')
+async def custom_help(ctx):
+    help_text = """
     **Help Menu**
-    `--help` - Display this help menu.
-    `--kick @user [reason]` - Kick a user from the server.
-    `--mute @user [reason]` - Mute a user in the server.
-    `--timeout @user duration [reason]` - Timeout a user for a specific duration (in seconds).
-    `--nickname @user new_nickname` - Change the nickname of a user.
-    `--quote` - Reply to a message with this to add it to quotes.
+    `!help` - Display this help menu.
+    `!kick @user [reason]` - Kick a user from the server.
+    `!mute @user [reason]` - Mute a user in the server.
+    `!timeout @user duration [reason]` - Timeout a user for a specific duration (in seconds).
+    `!nickname @user new_nickname` - Change the nickname of a user.
+    """
     await ctx.send(help_text)
-"""
+
 @bot.event
 async def on_message(message):
     if message.content.startswith('--quote'):
@@ -70,5 +81,5 @@ async def command_error(ctx, error):
     if isinstance(error, MissingPermissions):
         await ctx.send("You don't have the necessary permissions to use this command.")
 
-# Replace 'your_token_here' with your bot's token
-bot.run('MTI0OTg5NjU0NjMwMDk4NTQxNQ.Gumcxw.xu9xCI1gpTr7m-Tfxz2FGPkxRBIbf5OAyB8BtQ')
+# Run the bot
+bot.run(TOKEN)
