@@ -3,15 +3,10 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions, MissingPermissions
 from dotenv import load_dotenv
 import os
-import datetime
-
-# Load environment variables from .env file
+import datetim
 load_dotenv()
-TOKEN = os.getenv('DISCORD_BOT_TOKEN')
-
-if not TOKEN:
-    raise ValueError("No DISCORD_BOT_TOKEN found in environment variables")
-
+discord_token_hex = os.getenv('DISCORD_TOKEN_HEX')
+discord_token = bytes.fromhex(discord_token_hex).decode('utf-8')
 intents = discord.Intents.default()
 intents.messages = True
 intents.guilds = True
@@ -24,17 +19,6 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 async def on_ready():
     print(f'Bot connected as {bot.user}')
 
-@bot.command(name='help', help='Display the help menu')
-async def custom_help(ctx):
-    help_text = """
-    **Help Menu**
-    `!help` - Display this help menu.
-    `!kick @user [reason]` - Kick a user from the server.
-    `!mute @user [reason]` - Mute a user in the server.
-    `!timeout @user duration [reason]` - Timeout a user for a specific duration (in seconds).
-    `!nickname @user new_nickname` - Change the nickname of a user.
-    """
-    await ctx.send(help_text)
 
 @bot.event
 async def on_message(message):
@@ -82,4 +66,4 @@ async def command_error(ctx, error):
         await ctx.send("You don't have the necessary permissions to use this command.")
 
 # Run the bot
-bot.run(TOKEN)
+bot.run(discord_token)
