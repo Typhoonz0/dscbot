@@ -71,4 +71,4 @@ async def command_error(ctx, error):
         await ctx.send("You don't have the necessary permissions to use this command.")
 
 # Replace 'your_token_here' with your bot's token
-bot.run('MTI0OTg5NjU0NjMwMDk4NTQxNQ.GzUDgc.AUEcvoVFBni9Jwz87wlbp-DrdaHtL5GO9w2Dxke')
+bot.run('MTI0OTg5NjU0NjMwMDk4NTQxNQ.Gumcxw.xu9xCI1gpTr7m-Tfxz2FGPkxRBIbf5OAyB8BtQ')
