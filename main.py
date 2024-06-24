@@ -12,10 +12,10 @@ bot = commands.Bot(command_prefix='--', intents=intents)
 @bot.event
 async def on_ready():
     print(f'Bot connected as {bot.user}')
-
+"""
 @bot.command()
 async def help(ctx):
-    help_text = """
+    help_text = 
     **Help Menu**
     `--help` - Display this help menu.
     `--kick @user [reason]` - Kick a user from the server.
@@ -23,9 +23,8 @@ async def help(ctx):
     `--timeout @user duration [reason]` - Timeout a user for a specific duration (in seconds).
     `--nickname @user new_nickname` - Change the nickname of a user.
     `--quote` - Reply to a message with this to add it to quotes.
-    """
     await ctx.send(help_text)
-
+"""
 @bot.event
 async def on_message(message):
     if message.content.startswith('--quote'):
